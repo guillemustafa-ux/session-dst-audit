@@ -138,10 +138,12 @@ tPos = switch tablePos
 
 var table tbl = table.new(tPos, 3, 12, border_width = 1)
 
-cellBg = color.new(color.gray, 85)
-hdrBg = color.new(color.gray, 65)
-badBg = color.new(color.red, 65)
-goodBg = color.new(color.green, 65)
+// Opaque cell colors blended from the chart background, so candles do not show through the table
+// on a light or a dark theme.
+cellBg = color.from_gradient(0.12, 0.0, 1.0, chart.bg_color, color.gray)
+hdrBg = color.from_gradient(0.30, 0.0, 1.0, chart.bg_color, color.gray)
+badBg = color.from_gradient(0.40, 0.0, 1.0, chart.bg_color, color.red)
+goodBg = color.from_gradient(0.40, 0.0, 1.0, chart.bg_color, color.green)
 
 setCell(int col, int row, string txt, color bg = na, string align = text.align_center) =>
     table.cell(tbl, col, row, txt, text_color = chart.fg_color, text_size = size.small, text_halign = align, bgcolor = na(bg) ? cellBg : bg)
