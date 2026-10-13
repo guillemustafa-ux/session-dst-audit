@@ -71,7 +71,18 @@ Two footer rows follow: the two zones in use and a reminder that the numbers are
 5. Read the Reference zone row: the last offset change must be on a DST date, with `UTC-5 → UTC-4` in spring or `UTC-4 → UTC-5` in autumn. The UTC-5 row must say "no offset change on chart".
 6. To check for look-ahead, use Bar Replay: start a few hundred bars back and step forward. The counts should only change when a bar closes, and a shaded bar must keep its tint once closed.
 
-Result: added after the compile check.
+Result read on 13 Oct 2026 at 00:22 New York time, ES1! (CME) 15 minutes, extended hours, default settings (session 0930-1600 Monday to Friday, reference America/New_York, tested zone UTC-5). The loaded history starts on 1 Dec 2025, so it holds one offset change, 2026-03-08 (UTC-5 → UTC-4).
+
+| Row | Value |
+|---|---|
+| Session days (completed) | 222 (2025-12-01 to 2026-10-09) |
+| Days where the windows differ | 154 (69.4% of session days) |
+| Bars in both windows | 5,095 · mean volume 39,512.5 · mean range 0.164% |
+| Bars missed by the tested zone | 620 · mean volume 65,286.59 · mean range 0.242% |
+| Bars added by the tested zone | 604 · mean volume 14,172.24 · mean range 0.097% |
+| Volume, missed vs added | 4.61× |
+
+From March on, the UTC-5 window skipped the 09:30-10:30 hour, four 15-minute bars a day, and took the 16:00-17:00 hour instead, where the mean volume was 4.61 times lower and the mean range about 2.5 times smaller. The missed count includes 12 Oct, whose bars are counted but whose day is not yet completed. Control checks on the same chart: with `America/New_York` as the tested zone every mismatch count was 0 (5,715 bars in both windows = 5,095 + 620), and on the daily timeframe the table showed only "Use an intraday chart". On SPX (TVC) 15 minutes, where the loaded history starts in October 2023, the same settings counted 6 offset changes and 505 of 759 session days with different windows; that index has no volume, so the volume row reads n/a.
 
 ## Limitations
 
