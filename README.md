@@ -2,7 +2,7 @@
 
 Open-source TradingView indicator (Pine Script v6) that evaluates one session string in two timezones on every bar, a DST-aware reference zone and a zone under test such as a fixed UTC offset, and counts the bars and days on which the two windows differ.
 
-Published on TradingView: added after publishing.
+Published on TradingView: https://www.tradingview.com/script/EMa1CDGm-Session-DST-Audit-Does-a-Fixed-Offset-Session-Drift/
 
 ## What it measures
 
@@ -83,6 +83,8 @@ Result read on 13 Oct 2026 at 00:22 New York time, ES1! (CME) 15 minutes, extend
 | Volume, missed vs added | 4.61× |
 
 From March on, the UTC-5 window skipped the 09:30-10:30 hour, four 15-minute bars a day, and took the 16:00-17:00 hour instead, where the mean volume was 4.61 times lower and the mean range about 2.5 times smaller. The missed count includes 12 Oct, whose bars are counted but whose day is not yet completed. Control checks on the same chart: with `America/New_York` as the tested zone every mismatch count was 0 (5,715 bars in both windows = 5,095 + 620), and on the daily timeframe the table showed only "Use an intraday chart". On SPX (TVC) 15 minutes, where the loaded history starts in October 2023, the same settings counted 6 offset changes and 505 of 759 session days with different windows; that index has no volume, so the volume row reads n/a.
+
+The published chart was taken on 13 Oct 2026 at 13:10 New York time on the same chart and settings, after 12 Oct had completed: 223 session days (2025-12-01 to 2026-10-12), 155 with different windows (69.5%), 5,105 bars in both windows, 624 missed (mean volume 65,206.26, mean range 0.241%), 604 added (mean volume 14,172.24, mean range 0.097%), volume ratio 4.60×.
 
 ## Limitations
 
