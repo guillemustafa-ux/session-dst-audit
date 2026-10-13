@@ -7,7 +7,7 @@ WHAT IT DOES
 Session DST Audit takes one session string, such as 0930-1600, and checks it twice on every bar of an intraday chart: once in a DST-aware reference zone, for example America/New_York, and once in the zone under test, for example the fixed offset UTC-5. A session string is a local wall-clock window, so the two readings agree only while the two zones share the same UTC offset. When daylight saving time moves the reference clock and the fixed offset stays put, the tested window drifts: with the defaults, from March to November the UTC-5 window runs from 10:30 to 17:00 New York time, so it skips the first hour of the session and adds an hour after the close. The table counts the bars and days affected on the loaded history and compares the missed bars with the added ones.
 
 WHAT IS ORIGINAL HERE
-The script reads no code. It takes the session and the two zones you give it and shows what that pair does on this chart: the same string evaluated in both zones bar by bar, each bar classed as inside both windows, inside the reference window only (missed) or inside the tested window only (added). Each zone's UTC offset is read from the bars themselves, so the offset changes it reports come from the loaded data, not from a calendar. Missed and added bars are kept apart, each with its mean volume and mean range, because an hour at the open and an hour after the close are not the same hour.
+It does not inspect any script's code. It takes the session and the two zones you give it and shows what that pair does on this chart: the same string evaluated in both zones bar by bar, each bar classed as inside both windows, inside the reference window only (missed) or inside the tested window only (added). Each zone's UTC offset is computed at every bar's time, so the offset changes it reports are the ones that fall inside the loaded history. Missed and added bars are kept apart, each with its mean volume and mean range, because an hour at the open and an hour after the close are not the same hour.
 
 HOW THE WINDOWS ARE COMPARED
 - On every bar the session is tested in both zones with the bar's open time: a bar is inside a window when that time falls in the session in that zone.
@@ -28,7 +28,7 @@ HOW TO READ THE TABLE
 Session: the string under test, read as a local wall clock.
 Reference zone and Zone under test: name, offset on the last bar, number of offset changes on the loaded bars, and the last change with its date and both offsets.
 Session days (completed): days with at least one bar in either window, with the first and last date.
-Days where the windows differ: days with at least one bar in exactly one window, as a share of session days. Red when there is at least one, green otherwise.
+Days where the windows differ: days with at least one bar in exactly one window, as a share of session days. Red when there is at least one, green when there are session days and none differ.
 Bars in both windows, missed by the tested zone, added by the tested zone: bar counts per class, each with its mean volume and mean range.
 Volume, missed vs added: mean volume of the missed bars over that of the added bars.
 
