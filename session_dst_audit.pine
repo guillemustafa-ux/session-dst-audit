@@ -1,5 +1,5 @@
 //@version=6
-indicator("Session DST Audit: Does a Fixed-Offset Session Drift?", shorttitle = "SESSION-DST", overlay = true)
+indicator("Session DST Audit: Does a Fixed-Offset Session Drift?", shorttitle = "SESSION-DST", overlay = true, behind_chart = false)
 
 // Session DST Audit
 // 1) Takes one session string, meant as a local wall-clock window, and checks it twice on every bar:
